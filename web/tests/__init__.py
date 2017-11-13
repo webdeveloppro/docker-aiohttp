@@ -1,7 +1,7 @@
 import json
 import mock
 
-from app import start_web_app
+from app.__main__ import start_web_app
 
 from aiohttp.test_utils import unittest_run_loop
 from aiohttp.test_utils import AioHTTPTestCase
@@ -55,7 +55,9 @@ class HelloAioTest(AioHTTPTestCase):
                 'POST',
                 FIXTURE,
             )
+            print(status, data)
             assert status == 201
+            assert data == {}
 
     @unittest_run_loop
     async def test_view(self):
@@ -72,5 +74,8 @@ class HelloAioTest(AioHTTPTestCase):
                 self.url,
                 'GET',
             )
+            print(status, data)
             assert status == 200
-            assert data == FIXTURE
+            for f in FIXTURE:
+                assert data.count(f['text']) == 1
+                assert data.count(f['date_posted']) == 1

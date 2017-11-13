@@ -2,6 +2,7 @@ import datetime
 import json
 import traceback
 
+import aiohttp_jinja2
 from aiohttp import web
 from functools import partial
 
@@ -29,7 +30,18 @@ class ListView(web.View):
         for record in data:
             todo_list.append(dict(record))
 
-        return web.json_response(todo_list, dumps=date_dump, status=200)
+        counter = await self.request.app.redis.incr('counter')
+        context = {
+            'items': todo_list,
+            'counter': counter
+        }
+
+        response = aiohttp_jinja2.render_template(
+            'home.html',
+            self.request,
+            context
+        )
+        return response
 
 
 class CreateView(web.View):
@@ -84,4 +96,4 @@ class CreateView(web.View):
         except Exception as e:
             return web.json_response(e, status=500)
 
-        return web.json_response({"ok": 1}, status=201)
+        return web.json_response(text="{}", status=201)
