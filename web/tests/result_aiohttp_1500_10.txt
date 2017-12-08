@@ -1,0 +1,50 @@
+[env] admin@127:~/projects/django_vs_aiohttp/docker-aiohttp/web$ wrk -c 1500 -t 10 --timeout 5s http://192.168.99.100/
+Running 10s test @ http://192.168.99.100/
+  10 threads and 1500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   413.61ms   64.11ms 848.25ms   94.26%
+    Req/Sec    95.61     72.18   333.00     63.31%
+  5781 requests in 10.07s, 9.98MB read
+  Socket errors: connect 1257, read 0, write 0, timeout 0
+Requests/sec:    573.95
+Transfer/sec:      0.99MB
+[env] admin@127:~/projects/django_vs_aiohttp/docker-aiohttp/web$ wrk -c 1500 -t 10 -d 60s --timeout 5s http://192.168.99.100/
+Running 1m test @ http://192.168.99.100/
+  10 threads and 1500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   397.62ms   55.05ms   1.28s    97.01%
+    Req/Sec   159.96    110.11   415.00     55.78%
+  36563 requests in 1.00m, 63.11MB read
+  Socket errors: connect 1257, read 0, write 0, timeout 0
+Requests/sec:    608.45
+Transfer/sec:      1.05MB
+[env] admin@127:~/projects/django_vs_aiohttp/docker-aiohttp/web$ wrk -c 1500 -t 10 -d 60s --timeout 5s http://192.168.99.100/
+Running 1m test @ http://192.168.99.100/
+  10 threads and 1500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   395.86ms   45.91ms   1.25s    96.81%
+    Req/Sec   135.89     80.53   363.00     62.80%
+  36740 requests in 1.00m, 63.42MB read
+  Socket errors: connect 1257, read 0, write 0, timeout 0
+Requests/sec:    611.46
+Transfer/sec:      1.06MB
+[env] admin@127:~/projects/django_vs_aiohttp/docker-aiohttp/web$ wrk -c 1500 -t 10 -d 60s --timeout 5s http://192.168.99.100/
+Running 1m test @ http://192.168.99.100/
+  10 threads and 1500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   396.41ms   42.25ms 849.30ms   96.58%
+    Req/Sec   109.14     79.92   393.00     68.69%
+  36687 requests in 1.00m, 63.33MB read
+  Socket errors: connect 1257, read 0, write 0, timeout 0
+Requests/sec:    610.58
+Transfer/sec:      1.05MB
+[env] admin@127:~/projects/django_vs_aiohttp/docker-aiohttp/web$ wrk -c 1500 -t 10 -d 60s --timeout 5s http://192.168.99.100/
+Running 1m test @ http://192.168.99.100/
+  10 threads and 1500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   397.10ms   39.78ms 876.01ms   94.81%
+    Req/Sec   220.54    153.37   505.00     53.01%
+  36634 requests in 1.00m, 63.23MB read
+  Socket errors: connect 1257, read 0, write 0, timeout 0
+Requests/sec:    609.69
+Transfer/sec:      1.05MB

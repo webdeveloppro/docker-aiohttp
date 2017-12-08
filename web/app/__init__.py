@@ -1,33 +1,18 @@
 import asyncio
-import asyncpg
 import aiohttp_jinja2
-import aioredis
 import logging
 import uvloop
 import jinja2
 
 from aiohttp import web
+from app import sql
 from app.config import CONFIG
-
-
-async def db_connection(loop, config={}):
-    return await asyncpg.connect(
-        **config,
-        loop=loop
-    )
-
-
-async def redis_connection(loop, config={}):
-    return await aioredis.create_redis(
-        (config['host'], config['port'],),
-        loop=loop
-    )
 
 
 async def on_cleanup(app):
     app.redis.close()
     await app.redis.wait_closed()
-    await app.db.close()
+    await app.db_pool.close()
 
 
 async def start_web_app(loop):
@@ -36,8 +21,8 @@ async def start_web_app(loop):
 
     app.conf = CONFIG
 
-    app.db = await db_connection(loop, CONFIG['postgres'])
-    app.redis = await redis_connection(loop, CONFIG['redis'])
+    app.db_pool = await sql.pool_connection(loop, CONFIG['postgres'])
+    app.redis = await sql.redis_connection(loop, CONFIG['redis'])
     app.on_cleanup.append(on_cleanup)
 
     from app.routes import setup_routes

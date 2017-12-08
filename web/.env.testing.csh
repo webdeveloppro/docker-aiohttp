@@ -3,6 +3,8 @@ setenv POSTGRES_PASSWORD
 setenv POSTGRES_USER admin
 setenv POSTGRES_HOST localhost
 setenv POSTGRES_PORT 5432
+setenv POSTGRES_MINSIZE 1
+setenv POSTGRES_MAXSIZE 5
 
 setenv HOST 127.0.0.1
 setenv PORT 8080

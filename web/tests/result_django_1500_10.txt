@@ -1,0 +1,44 @@
+[env] admin@127:~/projects/django_vs_aiohttp/dockerizing-django$ wrk -c 1500 -t 10 -d 60s --timeout 5s http://192.168.99.100/
+Running 1m test @ http://192.168.99.100/
+  10 threads and 1500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.70s   734.86ms   4.97s    89.07%
+    Req/Sec    28.16     25.88   137.00     58.85%
+  6128 requests in 1.00m, 9.41MB read
+  Socket errors: connect 1257, read 0, write 0, timeout 88
+  Non-2xx or 3xx responses: 5
+Requests/sec:    101.99
+Transfer/sec:    160.44KB
+[env] admin@127:~/projects/django_vs_aiohttp/dockerizing-django$ wrk -c 1500 -t 10 -d 60s --timeout 5s http://192.168.99.100/
+Running 1m test @ http://192.168.99.100/
+  10 threads and 1500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.70s   749.30ms   4.99s    87.49%
+    Req/Sec    17.16     14.31   130.00     82.01%
+  6104 requests in 1.00m, 9.38MB read
+  Socket errors: connect 1257, read 0, write 0, timeout 99
+  Non-2xx or 3xx responses: 4
+Requests/sec:    101.61
+Transfer/sec:    159.95KB
+[env] admin@127:~/projects/django_vs_aiohttp/dockerizing-django$ wrk -c 1500 -t 10 -d 60s --timeout 5s http://192.168.99.100/
+Running 1m test @ http://192.168.99.100/
+  10 threads and 1500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.65s   696.30ms   4.90s    87.70%
+    Req/Sec    42.65     30.80   130.00     56.61%
+  6194 requests in 1.00m, 9.52MB read
+  Socket errors: connect 1257, read 0, write 0, timeout 78
+  Non-2xx or 3xx responses: 7
+Requests/sec:    103.06
+Transfer/sec:    162.20KB
+[env] admin@127:~/projects/django_vs_aiohttp/dockerizing-django$ wrk -c 1500 -t 10 -d 60s --timeout 5s http://192.168.99.100/
+Running 1m test @ http://192.168.99.100/
+  10 threads and 1500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.67s   711.68ms   4.94s    86.20%
+    Req/Sec    37.76     27.91   138.00     58.35%
+  6123 requests in 1.00m, 9.39MB read
+  Socket errors: connect 1257, read 0, write 0, timeout 109
+  Non-2xx or 3xx responses: 25
+Requests/sec:    101.92
+Transfer/sec:    160.03KB

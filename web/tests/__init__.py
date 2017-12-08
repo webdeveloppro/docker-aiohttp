@@ -44,7 +44,8 @@ class HelloAioTest(AioHTTPTestCase):
         with mock.patch('asyncpg.connection.Connection.fetchval') as mockConnection:
             FIXTURE = {'text': 'Text test'}
 
-            async def fetchval(query, *params):
+            async def fetchval(sql, query, *params):
+                print("q", query, params)
                 assert query == "insert into item(text) values($1) RETURNING id"
                 assert params == ('Text test',)
                 return 1
@@ -64,7 +65,8 @@ class HelloAioTest(AioHTTPTestCase):
         with mock.patch('asyncpg.connection.Connection.fetch') as mockConnection:
             FIXTURE = [{'id': 1, 'text': 'new todo', 'date_posted': '2017-10-10 10:10'}]
 
-            async def fetch(query, *args, timeout=None) -> list:
+            async def fetch(self, query, *args, timeout=None) -> list:
+                print("q2", query, args)
                 assert query == "SELECT * FROM item"
                 assert args == ()
                 return FIXTURE

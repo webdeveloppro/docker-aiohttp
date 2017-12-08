@@ -6,7 +6,8 @@ import aiohttp_jinja2
 from aiohttp import web
 from functools import partial
 
-from .schemas import ItemSchema
+from app.sql import SQL
+from app.schemas import ItemSchema
 
 
 # JSON serialization tuning
@@ -21,12 +22,19 @@ def fix_json(obj):
 date_dump = partial(json.dumps, indent=None, default=fix_json)
 
 
-class ListView(web.View):
+class ItemSQLView(web.View):
+
+    def __init__(self, request):
+        self.sql = SQL(request.app)
+        super().__init__(request)
+
+
+class ListView(ItemSQLView):
 
     async def get(self):
         query = "SELECT * FROM item"
         todo_list = []
-        data = await self.request.app.db.fetch(query)
+        data = await self.sql.execute(query, [], 'fetch')
         for record in data:
             todo_list.append(dict(record))
 
@@ -44,7 +52,7 @@ class ListView(web.View):
         return response
 
 
-class CreateView(web.View):
+class CreateView(ItemSQLView):
 
     schema = ItemSchema
 
@@ -55,7 +63,7 @@ class CreateView(web.View):
             ','.join(['$%d' % (x+1) for x in range(0, params.__len__())]),
         )
 
-        result = await self.request.app.db.fetchval(query, *params.values())
+        result = await self.sql.execute(query, params.values(), 'fetchval')
         return result
 
     async def get_schema_data(self, schema=None, partial=False):
