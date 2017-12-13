@@ -1,0 +1,5 @@
+Averange Running 10s test @ http://192.168.99.100/
+5904 requests in 10.08s
+Socket errors: connect 257, read 0, write 0, timeout 0
+Requests/sec:    585.41
+Transfer/sec:    1.01MB
